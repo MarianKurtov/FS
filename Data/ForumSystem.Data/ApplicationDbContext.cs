@@ -26,6 +26,12 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Category> Categorys { get; set; } // 2.Добавяме го
+
+        public DbSet<Post> Posts { get; set; } // 2.Добавяме го
+
+        public DbSet<Comment> Comments { get; set; } // 2.Добавяме го
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

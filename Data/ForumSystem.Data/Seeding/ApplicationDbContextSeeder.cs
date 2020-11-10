@@ -22,11 +22,12 @@
             }
 
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
-
+            // Списък от всички сиидъри, които имаме
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new CategorysSeeder(),
                           };
 
             foreach (var seeder in seeders)
