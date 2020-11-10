@@ -1,35 +1,34 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
-    using ForumSystem.Data;
     using System.Diagnostics;
     using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
+
+    using ForumSystem.Data.Common.Repositories;
+    using ForumSystem.Data.Models;
+    using ForumSystem.Services.Data;
+    using ForumSystem.Services.Mapping;
     using ForumSystem.Web.ViewModels;
     using ForumSystem.Web.ViewModels.Home;
+    using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly ICategoriesService categoriesService;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ICategoriesService categoriesService)
         {
-            this.db = db;
+            this.categoriesService = categoriesService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel();
+            var viewModel = new IndexViewModel(); // step 1 в идеалния случай един екшън определя viewModel-a (IndexViewModel) !A В VIEWMODEL-A ТРЯБВА ДА МУ ОБЯСНИМ, ЧЕ СЕ МАПВА
 
-            var category = this.db.Categorys.Select(x => new IndexCategoryViewModel
-            {
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                Name = x.Name,
-                Title = x.Title,
+            var category = this.categoriesService.GetAll<IndexCategoryViewModel>(); // step 2 взема информацията за viewModel-a с извикването на сървис
 
-            }).ToList();
-            viewModel.Categories=category;
-            return this.View(viewModel);
+            viewModel.Categories = category; // step 3 присвоява го
+
+            return this.View(viewModel); // step 4 подава го
         }
 
         public IActionResult Privacy()

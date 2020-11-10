@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace ForumSystem.Web.ViewModels.Home
+﻿namespace ForumSystem.Web.ViewModels.Home
 {
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
-        public IEnumerable<IndexCategoryViewModel> Categories { get; set; } // Списък с категориите ни 
+        public IEnumerable<IndexCategoryViewModel> Categories { get; set; } // Списък с категориите ни.
     }
 }
